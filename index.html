@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hive Mind - Save the Queen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Hive Mind</h1>
+            <p class="tagline">Save the Queen together</p>
+        </header>
+
+        <div class="role-selector" id="roleSelector">
+            <h2>Choose Your Role</h2>
+            <div class="roles">
+                <button class="role-btn" data-role="forager">
+                    <span class="role-icon">🍯</span>
+                    <span class="role-name">Forager</span>
+                    <span class="role-desc">Slide pieces</span>
+                </button>
+                <button class="role-btn" data-role="architect">
+                    <span class="role-icon">🔧</span>
+                    <span class="role-name">Architect</span>
+                    <span class="role-desc">Rotate pieces</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="game-board" id="gameBoard" style="display: none;">
+            <div class="board-header">
+                <div class="role-badge" id="roleBadge"></div>
+                <div class="move-counter">
+                    Moves: <span id="moveCount">0</span>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid" id="grid"></div>
+                <div class="exit-marker">EXIT</div>
+            </div>
+
+            <div class="controls">
+                <button id="resetBtn" class="control-btn">Reset Puzzle</button>
+            </div>
+        </div>
+
+        <div class="win-screen" id="winScreen" style="display: none;">
+            <h2>The Queen is Safe!</h2>
+            <p>Completed in <span id="finalMoves">0</span> moves</p>
+            <button id="nextPuzzleBtn" class="control-btn">Next Puzzle</button>
+        </div>
+    </div>
+
+    <script src="js/pieces.js"></script>
+    <script src="js/puzzles.js"></script>
+    <script src="js/grid.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+/* Hive Mind - Game Styles */
+
+:root {
+    --honey-gold: #f4a100;
+    --honey-light: #ffd54f;
+    --honey-dark: #c17900;
+    --comb-bg: #fff8e1;
+    --queen-purple: #9c27b0;
+    --worker-brown: #8d6e63;
+    --larva-cream: #ffe0b2;
+    --grid-line: #e0c080;
+    --text-dark: #3e2723;
+    --success-green: #4caf50;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, var(--honey-light) 0%, var(--comb-bg) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    max-width: 500px;
+    width: 100%;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--honey-dark);
+    text-shadow: 2px 2px 0 var(--honey-light);
+}
+
+.tagline {
+    color: var(--text-dark);
+    opacity: 0.8;
+    font-size: 1.1rem;
+}
+
+/* Role Selector */
+.role-selector {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.role-selector h2 {
+    color: var(--text-dark);
+    margin-bottom: 24px;
+}
+
+.roles {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.role-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 32px;
+    border: 3px solid var(--honey-gold);
+    border-radius: 12px;
+    background: var(--comb-bg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.role-btn:hover {
+    background: var(--honey-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 161, 0, 0.3);
+}
+
+.role-icon {
+    font-size: 2.5rem;
+}
+
+.role-name {
+    font-weight: bold;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+.role-desc {
+    color: var(--text-dark);
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* Game Board */
+.game-board {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.role-badge {
+    background: var(--honey-gold);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.move-counter {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    font-weight: bold;
+}
+
+/* Grid */
+.grid-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    grid-template-rows: repeat(5, 60px);
+    gap: 2px;
+    background: var(--grid-line);
+    padding: 2px;
+    border-radius: 8px;
+}
+
+.cell {
+    background: var(--comb-bg);
+    width: 60px;
+    height: 60px;
+}
+
+.exit-marker {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    background: var(--success-green);
+    color: white;
+    padding: 8px 4px;
+    border-radius: 0 8px 8px 0;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+/* Pieces */
+.piece {
+    position: absolute;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    user-select: none;
+}
+
+.piece:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.piece.queen {
+    background: linear-gradient(135deg, var(--queen-purple), #7b1fa2);
+    color: white;
+    z-index: 10;
+}
+
+.piece.worker {
+    background: linear-gradient(135deg, var(--worker-brown), #6d4c41);
+    color: white;
+}
+
+.piece.larva {
+    background: linear-gradient(135deg, var(--larva-cream), #ffcc80);
+    color: var(--text-dark);
+}
+
+.piece.honey {
+    background: linear-gradient(135deg, var(--honey-gold), var(--honey-dark));
+    color: white;
+}
+
+.piece.selected {
+    box-shadow: 0 0 0 3px var(--honey-gold), 0 4px 12px rgba(0,0,0,0.3);
+    transform: scale(1.02);
+}
+
+.piece.dragging {
+    opacity: 0.8;
+    z-index: 100;
+}
+
+/* Controls */
+.controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.control-btn {
+    background: var(--honey-gold);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.control-btn:hover {
+    background: var(--honey-dark);
+}
+
+/* Win Screen */
+.win-screen {
+    background: white;
+    border-radius: 16px;
+    padding: 48px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.win-screen h2 {
+    color: var(--success-green);
+    font-size: 2rem;
+    margin-bottom: 16px;
+}
+
+.win-screen p {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+    .grid {
+        grid-template-columns: repeat(5, 50px);
+        grid-template-rows: repeat(5, 50px);
+    }
+
+    .cell {
+        width: 50px;
+        height: 50px;
+    }
+
+    .roles {
+        flex-direction: column;
+    }
+}
