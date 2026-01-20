@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hive Mind - Save the Queen</title>
     <link rel="stylesheet" href="style.css">
+    <!-- PartySocket for multiplayer -->
+    <script src="https://unpkg.com/partysocket@latest/dist/index.global.js"></script>
 </head>
 <body>
     <div class="game-container">
@@ -13,8 +15,78 @@
             <p class="tagline">Save the Queen together</p>
         </header>
 
-        <div class="role-selector" id="roleSelector">
-            <h2>Choose Your Role</h2>
+        <!-- Mode Selector -->
+        <div class="mode-selector" id="modeSelector">
+            <h2>How do you want to play?</h2>
+            <div class="modes">
+                <button class="mode-btn" data-mode="solo">
+                    <span class="mode-icon">🎮</span>
+                    <span class="mode-name">Solo Test</span>
+                    <span class="mode-desc">Test both roles yourself</span>
+                </button>
+                <button class="mode-btn" data-mode="multiplayer">
+                    <span class="mode-icon">👥</span>
+                    <span class="mode-name">Multiplayer</span>
+                    <span class="mode-desc">Play with a teammate</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Multiplayer Lobby -->
+        <div class="lobby" id="lobby" style="display: none;">
+            <h2>Join or Create a Room</h2>
+
+            <div class="lobby-options">
+                <div class="lobby-section">
+                    <h3>Create New Room</h3>
+                    <input type="text" id="playerName" placeholder="Your name" maxlength="20">
+                    <button class="control-btn" id="createRoomBtn">Create Room</button>
+                </div>
+
+                <div class="lobby-divider">OR</div>
+
+                <div class="lobby-section">
+                    <h3>Join Existing Room</h3>
+                    <input type="text" id="roomCodeInput" placeholder="Room code (e.g. ABCD)" maxlength="4" style="text-transform: uppercase;">
+                    <button class="control-btn" id="joinRoomBtn">Join Room</button>
+                </div>
+            </div>
+
+            <button class="back-btn" id="backToModeBtn">← Back</button>
+        </div>
+
+        <!-- Waiting Room -->
+        <div class="waiting-room" id="waitingRoom" style="display: none;">
+            <h2>Room: <span id="roomCodeDisplay">----</span></h2>
+            <p class="share-hint">Share this code with your teammate!</p>
+
+            <div class="players-list" id="playersList">
+                <!-- Players will be added here -->
+            </div>
+
+            <div class="role-selector-mp" id="roleSelectorMp">
+                <h3>Choose Your Role</h3>
+                <div class="roles">
+                    <button class="role-btn" data-role="forager" id="foragerBtn">
+                        <span class="role-icon">🍯</span>
+                        <span class="role-name">Forager</span>
+                        <span class="role-desc">Slide pieces</span>
+                    </button>
+                    <button class="role-btn" data-role="architect" id="architectBtn">
+                        <span class="role-icon">🔧</span>
+                        <span class="role-name">Architect</span>
+                        <span class="role-desc">Rotate pieces</span>
+                    </button>
+                </div>
+            </div>
+
+            <p class="waiting-status" id="waitingStatus">Waiting for both players to choose roles...</p>
+        </div>
+
+        <!-- Solo Role Selector (for testing) -->
+        <div class="role-selector" id="roleSelector" style="display: none;">
+            <h2>Choose Your Starting Role</h2>
+            <p class="solo-hint">You can switch roles anytime in solo mode</p>
             <div class="roles">
                 <button class="role-btn" data-role="forager">
                     <span class="role-icon">🍯</span>
@@ -27,14 +99,22 @@
                     <span class="role-desc">Rotate pieces</span>
                 </button>
             </div>
+            <button class="back-btn" id="backFromSoloBtn">← Back</button>
         </div>
 
+        <!-- Game Board -->
         <div class="game-board" id="gameBoard" style="display: none;">
             <div class="board-header">
                 <div class="role-badge" id="roleBadge"></div>
                 <div class="move-counter">
                     Moves: <span id="moveCount">0</span>
                 </div>
+            </div>
+
+            <!-- Connection status for multiplayer -->
+            <div class="connection-status" id="connectionStatus" style="display: none;">
+                <span class="status-dot"></span>
+                <span class="status-text">Connected</span>
             </div>
 
             <div class="grid-container">
@@ -44,9 +124,20 @@
 
             <div class="controls">
                 <button id="resetBtn" class="control-btn">Reset Puzzle</button>
+                <button id="leaveBtn" class="control-btn secondary" style="display: none;">Leave Room</button>
+            </div>
+
+            <!-- Test Mode: Role Switcher (solo only) -->
+            <div class="test-controls" id="testControls">
+                <p class="test-label">SOLO MODE - Switch Role:</p>
+                <div class="role-switcher">
+                    <button class="switch-btn active" data-role="forager">🍯 Forager</button>
+                    <button class="switch-btn" data-role="architect">🔧 Architect</button>
+                </div>
             </div>
         </div>
 
+        <!-- Win Screen -->
         <div class="win-screen" id="winScreen" style="display: none;">
             <h2>The Queen is Safe!</h2>
             <p>Completed in <span id="finalMoves">0</span> moves</p>
@@ -57,6 +148,7 @@
     <script src="js/pieces.js"></script>
     <script src="js/puzzles.js"></script>
     <script src="js/grid.js"></script>
+    <script src="js/multiplayer.js"></script>
     <script src="js/game.js"></script>
 </body>
 </html>

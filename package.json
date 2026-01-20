@@ -1,0 +1,27 @@
+{
+  "name": "hive-mind",
+  "version": "1.0.0",
+  "description": "A cooperative puzzle game for teams. Save the Queen together.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "partykit dev",
+    "deploy": "partykit deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeTonight-SA/hive-mind.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/CodeTonight-SA/hive-mind/issues"
+  },
+  "homepage": "https://github.com/CodeTonight-SA/hive-mind#readme",
+  "dependencies": {
+    "partykit": "^0.0.115",
+    "partysocket": "^1.1.10"
+  }
+}
